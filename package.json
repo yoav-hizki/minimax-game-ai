@@ -1,31 +1,55 @@
 {
-    "homepage": "http://ucfx.github.io/TIC-TAC-TOE-GAME",
-    "name": "tic-tac-toe-game",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-        "preview": "vite preview",
-        "predeploy": "npm run build",
-        "deploy": "gh-pages -d dist"
-    },
-    "dependencies": {
-        "framer-motion": "^11.1.9",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "sass": "^1.77.1"
-    },
-    "devDependencies": {
-        "@types/react": "^18.2.66",
-        "@types/react-dom": "^18.2.22",
-        "@vitejs/plugin-react": "^4.2.1",
-        "eslint": "^8.57.0",
-        "eslint-plugin-react": "^7.34.1",
-        "eslint-plugin-react-hooks": "^4.6.0",
-        "eslint-plugin-react-refresh": "^0.4.6",
-        "gh-pages": "^6.1.1",
-        "vite": "^5.2.0"
-    }
+  "name": "tic-tac-toe-game",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "homepage": "http://ucfx.github.io/TIC-TAC-TOE-GAME",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "dependencies": {
+    "motion": "^12.12.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@vitest/coverage-v8": "^4.1.9",
+    "@playwright/test": "^1.52.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^6.0.3",
+    "eslint": "^9.28.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "gh-pages": "^6.3.0",
+    "globals": "^16.2.0",
+    "jiti": "^2.7.0",
+    "jsdom": "^26.1.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.0",
+    "vite": "^8.1.0",
+    "vitest": "^4.1.9"
+  }
 }
