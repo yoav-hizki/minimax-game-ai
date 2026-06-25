@@ -10,6 +10,15 @@ export const useTicTacToe = (): GameState => {
   const [isAiMode, setIsAiMode] = useState(false);
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
 
+  const applyMoveOutcome = (board: Board): void => {
+    const W = checkWinner(board);
+    if (W) {
+      setWinner(W);
+    } else if (checkEndTheGame(board)) {
+      setWinner('x | o');
+    }
+  };
+
   const updateSquares = (ind: number): void => {
     if (squares[ind] || winner || (isAiMode && turn === 'o')) {
       return;
@@ -18,15 +27,9 @@ export const useTicTacToe = (): GameState => {
     s[ind] = turn;
     setSquares(s);
     setTurn(turn === 'x' ? 'o' : 'x');
-    const W = checkWinner(s);
-    if (W) {
-      setWinner(W);
-    } else if (checkEndTheGame(s)) {
-      setWinner('x | o');
-    }
+    applyMoveOutcome(s);
   };
 
-  // AI move logic
   useEffect(() => {
     if (isAiMode && turn === 'o' && !winner) {
       const bestMove = findBestMove([...squares], difficulty);
@@ -35,12 +38,7 @@ export const useTicTacToe = (): GameState => {
         s[bestMove] = 'o';
         setSquares(s);
         setTurn('x');
-        const W = checkWinner(s);
-        if (W) {
-          setWinner(W);
-        } else if (checkEndTheGame(s)) {
-          setWinner('x | o');
-        }
+        applyMoveOutcome(s);
       }
     }
   }, [squares, turn, isAiMode, winner, difficulty]);
