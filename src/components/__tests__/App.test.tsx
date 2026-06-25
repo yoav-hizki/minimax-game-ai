@@ -3,21 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../../App';
 
-// Mock motion/react to avoid animation issues in tests
-vi.mock('motion/react', () => ({
-  motion: {
-    div: ({ children, className, onClick }: React.HTMLAttributes<HTMLDivElement>) => (
-      <div className={className} onClick={onClick}>{children}</div>
-    ),
-    span: ({ children, className }: React.HTMLAttributes<HTMLSpanElement>) => (
-      <span className={className}>{children}</span>
-    ),
-    h2: ({ children, className }: React.HTMLAttributes<HTMLHeadingElement>) => (
-      <h2 className={className}>{children}</h2>
-    ),
-  },
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}));
+vi.mock('motion/react');
 
 describe('App', () => {
   it('renders the game title "TIC-TAC-TOE"', () => {

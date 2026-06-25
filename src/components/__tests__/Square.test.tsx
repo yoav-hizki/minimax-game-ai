@@ -3,17 +3,7 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Square from '../Square/Square';
 
-// Mock motion/react to avoid animation issues in tests
-vi.mock('motion/react', () => ({
-  motion: {
-    div: ({ children, className, onClick }: React.HTMLAttributes<HTMLDivElement>) => (
-      <div className={className} onClick={onClick}>{children}</div>
-    ),
-    span: ({ children, className }: React.HTMLAttributes<HTMLSpanElement>) => (
-      <span className={className}>{children}</span>
-    ),
-  },
-}));
+vi.mock('motion/react');
 
 describe('Square', () => {
   it('renders without crashing', () => {
