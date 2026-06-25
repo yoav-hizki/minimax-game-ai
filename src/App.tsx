@@ -19,12 +19,14 @@ function App() {
     changeDifficulty,
   } = useTicTacToe();
 
+  const capitalizedDifficulty = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+
   return (
     <div className={styles.ticTacToe}>
       <h1>
         TIC-TAC-TOE
         {isAiMode
-          ? ` (AI Mode - ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} Level)`
+          ? ` (AI Mode - ${capitalizedDifficulty} Level)`
           : ''}
       </h1>
       <div className={styles.gameControls}>
@@ -34,7 +36,7 @@ function App() {
         </button>
         {isAiMode && (
           <button onClick={changeDifficulty}>
-            {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+            {capitalizedDifficulty}
           </button>
         )}
       </div>
