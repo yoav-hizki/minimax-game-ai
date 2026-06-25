@@ -6,13 +6,13 @@ import App from '../../App';
 // Mock motion/react to avoid animation issues in tests
 vi.mock('motion/react', () => ({
   motion: {
-    div: ({ children, className, onClick, ...rest }: React.HTMLAttributes<HTMLDivElement>) => (
+    div: ({ children, className, onClick }: React.HTMLAttributes<HTMLDivElement>) => (
       <div className={className} onClick={onClick}>{children}</div>
     ),
-    span: ({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) => (
+    span: ({ children, className }: React.HTMLAttributes<HTMLSpanElement>) => (
       <span className={className}>{children}</span>
     ),
-    h2: ({ children, className, ...rest }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    h2: ({ children, className }: React.HTMLAttributes<HTMLHeadingElement>) => (
       <h2 className={className}>{children}</h2>
     ),
   },

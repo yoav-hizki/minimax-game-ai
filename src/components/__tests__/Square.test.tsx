@@ -1,15 +1,15 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Square from '../Square/Square';
 
 // Mock motion/react to avoid animation issues in tests
 vi.mock('motion/react', () => ({
   motion: {
-    div: ({ children, className, onClick, ...rest }: React.HTMLAttributes<HTMLDivElement>) => (
+    div: ({ children, className, onClick }: React.HTMLAttributes<HTMLDivElement>) => (
       <div className={className} onClick={onClick}>{children}</div>
     ),
-    span: ({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) => (
+    span: ({ children, className }: React.HTMLAttributes<HTMLSpanElement>) => (
       <span className={className}>{children}</span>
     ),
   },

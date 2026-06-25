@@ -1,31 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 
-/**
- * Helper: get the 9 board squares (first 9 .square elements on the page).
- * The turn indicator adds 2 more .square elements after the board squares.
- */
-function boardSquares(page: Page) {
-  return page.locator('.square').first().locator('..').locator('~ *').locator('.square');
-}
-
-/**
- * Click the Nth board square (0-8).
- * Board squares are the first 9 `.square` elements in DOM order.
- */
 async function clickCell(page: Page, index: number) {
   await page.locator('.square').nth(index).click();
-}
-
-/**
- * Count how many X marks are on the board (all .x spans on the page,
- * including turn indicator — we use it relatively for assertions).
- */
-function allXMarks(page: Page) {
-  return page.locator('.square .x');
-}
-
-function allOMarks(page: Page) {
-  return page.locator('.square .o');
 }
 
 test.describe('Basic rendering', () => {
@@ -233,7 +209,6 @@ test.describe('AI gameplay', () => {
     // The AI uses useEffect, so it fires on the next render cycle
     // Check that one of the board squares (indices 0-8) now has an O
     // We look for any .o inside the first 9 squares
-    let aiMoved = false;
     // Use a polling approach: wait for any board square to have .o
     await expect(async () => {
       let oCount = 0;
