@@ -4,6 +4,17 @@ async function clickCell(page: Page, index: number) {
   await page.locator('.square').nth(index).click();
 }
 
+async function expectOMarksOnBoard(page: Page, minCount: number) {
+  await expect(async () => {
+    let oCount = 0;
+    for (let i = 0; i < 9; i++) {
+      const count = await page.locator('.square').nth(i).locator('.o').count();
+      oCount += count;
+    }
+    expect(oCount).toBeGreaterThanOrEqual(minCount);
+  }).toPass({ timeout: 5000 });
+}
+
 test.describe('Basic rendering', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
@@ -210,14 +221,7 @@ test.describe('AI gameplay', () => {
     // Check that one of the board squares (indices 0-8) now has an O
     // We look for any .o inside the first 9 squares
     // Use a polling approach: wait for any board square to have .o
-    await expect(async () => {
-      let oCount = 0;
-      for (let i = 0; i < 9; i++) {
-        const count = await page.locator('.square').nth(i).locator('.o').count();
-        oCount += count;
-      }
-      expect(oCount).toBeGreaterThanOrEqual(1);
-    }).toPass({ timeout: 5000 });
+    await expectOMarksOnBoard(page, 1);
   });
 
   test('AI makes a move within reasonable time', async ({ page }) => {
@@ -230,15 +234,7 @@ test.describe('AI gameplay', () => {
     await clickCell(page, 4);
 
     // AI should respond — at least one O should appear on the board
-    // We check by looking at all board squares for an .o mark
-    await expect(async () => {
-      let oCount = 0;
-      for (let i = 0; i < 9; i++) {
-        const count = await page.locator('.square').nth(i).locator('.o').count();
-        oCount += count;
-      }
-      expect(oCount).toBeGreaterThanOrEqual(1);
-    }).toPass({ timeout: 5000 });
+    await expectOMarksOnBoard(page, 1);
 
     // Make another human move on an empty square
     // Find the first empty board square (not 4 which we clicked, not the AI's move)
@@ -253,13 +249,6 @@ test.describe('AI gameplay', () => {
     }
 
     // AI should respond again — now 2 O marks on the board
-    await expect(async () => {
-      let oCount = 0;
-      for (let i = 0; i < 9; i++) {
-        const count = await page.locator('.square').nth(i).locator('.o').count();
-        oCount += count;
-      }
-      expect(oCount).toBeGreaterThanOrEqual(2);
-    }).toPass({ timeout: 5000 });
+    await expectOMarksOnBoard(page, 2);
   });
 });
