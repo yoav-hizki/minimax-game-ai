@@ -33,22 +33,22 @@ export const minimax = (board: Board, depth: number, isMaximizing: boolean): num
   }
 };
 
+const getRandomEmptySquare = (board: Board): number => {
+  const emptySquares = board.reduce<number[]>(
+    (acc, sq, idx) => (sq === '' ? [...acc, idx] : acc),
+    [],
+  );
+  return emptySquares[Math.floor(Math.random() * emptySquares.length)]!;
+};
+
 export const findBestMove = (board: Board, difficulty: Difficulty): number => {
   if (difficulty === 'easy') {
-    const emptySquares = board.reduce<number[]>(
-      (acc, sq, idx) => (sq === '' ? [...acc, idx] : acc),
-      [],
-    );
-    return emptySquares[Math.floor(Math.random() * emptySquares.length)]!;
+    return getRandomEmptySquare(board);
   }
 
   if (difficulty === 'medium') {
     if (Math.random() < 0.5) {
-      const emptySquares = board.reduce<number[]>(
-        (acc, sq, idx) => (sq === '' ? [...acc, idx] : acc),
-        [],
-      );
-      return emptySquares[Math.floor(Math.random() * emptySquares.length)]!;
+      return getRandomEmptySquare(board);
     }
   }
 
