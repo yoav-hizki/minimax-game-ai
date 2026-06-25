@@ -4,6 +4,17 @@ import type { Board } from '../../types/game';
 
 const emptyBoard: Board = ['', '', '', '', '', '', '', '', ''];
 
+const WINNING_COMBO_CASES = [
+  { combo: [0, 1, 2], label: 'top row' },
+  { combo: [3, 4, 5], label: 'middle row' },
+  { combo: [6, 7, 8], label: 'bottom row' },
+  { combo: [0, 3, 6], label: 'left column' },
+  { combo: [1, 4, 7], label: 'middle column' },
+  { combo: [2, 5, 8], label: 'right column' },
+  { combo: [0, 4, 8], label: 'main diagonal' },
+  { combo: [2, 4, 6], label: 'anti diagonal' },
+] as const;
+
 describe('WINNING_COMBOS', () => {
   it('contains exactly 8 winning combinations', () => {
     expect(WINNING_COMBOS).toHaveLength(8);
@@ -35,16 +46,7 @@ describe('checkWinner', () => {
     expect(checkWinner(board)).toBeNull();
   });
 
-  it.each([
-    { combo: [0, 1, 2], label: 'top row' },
-    { combo: [3, 4, 5], label: 'middle row' },
-    { combo: [6, 7, 8], label: 'bottom row' },
-    { combo: [0, 3, 6], label: 'left column' },
-    { combo: [1, 4, 7], label: 'middle column' },
-    { combo: [2, 5, 8], label: 'right column' },
-    { combo: [0, 4, 8], label: 'main diagonal' },
-    { combo: [2, 4, 6], label: 'anti diagonal' },
-  ])('returns "x" when X wins via $label ($combo)', ({ combo }) => {
+  it.each(WINNING_COMBO_CASES)('returns "x" when X wins via $label ($combo)', ({ combo }) => {
     const board: Board = [...emptyBoard];
     for (const idx of combo) {
       board[idx] = 'x';
@@ -52,16 +54,7 @@ describe('checkWinner', () => {
     expect(checkWinner(board)).toBe('x');
   });
 
-  it.each([
-    { combo: [0, 1, 2], label: 'top row' },
-    { combo: [3, 4, 5], label: 'middle row' },
-    { combo: [6, 7, 8], label: 'bottom row' },
-    { combo: [0, 3, 6], label: 'left column' },
-    { combo: [1, 4, 7], label: 'middle column' },
-    { combo: [2, 5, 8], label: 'right column' },
-    { combo: [0, 4, 8], label: 'main diagonal' },
-    { combo: [2, 4, 6], label: 'anti diagonal' },
-  ])('returns "o" when O wins via $label ($combo)', ({ combo }) => {
+  it.each(WINNING_COMBO_CASES)('returns "o" when O wins via $label ($combo)', ({ combo }) => {
     const board: Board = [...emptyBoard];
     for (const idx of combo) {
       board[idx] = 'o';
